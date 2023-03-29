@@ -1,0 +1,47 @@
+currentPage = "Landing Screen"
+
+database = db.connect()
+userTable = database.table(userData)
+
+usernameInput = UI.CreateInputField()
+passwordInput = UI.CreateInputField()
+emailInput = UI.CreateInputField()
+
+registerButton = UI.CreateClickableButton("Register")
+loginButton = UI.CreateClickableButton("Login")
+deleteButton = UI.CreateClickableButton("Register")
+changeButton = UI.CreateClickableButton("Login")
+
+while currentPage = "Landing Screen" do
+    
+    if registerButton is clicked then
+        if userTable.queeryColumn(usernameInput) = false then
+            userTable.Insert(usernameInput, passwordInput, emailInput)
+        endif
+    endif
+    
+    if loginButton is clicked then
+        if userTable.queeryColumn(usernameInput) = true then
+            if userTable.queeryRow(usernameInput, passwordInput) = true then
+                currentPage = "Home"
+            endif
+        endif
+    endif
+    
+    if deleteButton is clicked then
+        if userTable.queeryColumn(usernameInput) = true then
+            if userTable.queeryRow(usernameInput, passwordInput) = true then
+                userTable.removeRow(usernameInput)
+            endif
+        endif
+    endif
+    
+    if loginButton is clicked then
+        if userTable.queeryColumn(usernameInput) = true then
+            if userTable.queeryRow(usernameInput, passwordInput) = true then
+                userTable.changeRow(usernameInput, usernameInput, passwordInput, emailInput)
+            endif
+        endif
+    endif
+    
+endwhile
